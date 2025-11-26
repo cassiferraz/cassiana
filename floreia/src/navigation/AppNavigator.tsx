@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Text, View, ActivityIndicator } from 'react-native';
+import { Text, View, ActivityIndicator, StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { getUser } from '../services/storage';
 import { User } from '../types';
 
-// Importar telas (vamos criar depois)
 import OnboardingScreen from '../screens/OnboardingScreen';
 import HomeScreen from '../screens/HomeScreen';
 import MoodCheckScreen from '../screens/MoodCheckScreen';
@@ -20,7 +19,10 @@ import BotScreen from '../screens/BotScreen';
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-// Navegação por tabs (tela principal)
+const TabIcon = ({ icon }: { icon: string }) => (
+  <Text style={styles.tabIcon}>{icon}</Text>
+);
+
 const MainTabs = () => {
   return (
     <Tab.Navigator
@@ -28,13 +30,7 @@ const MainTabs = () => {
         headerShown: false,
         tabBarActiveTintColor: '#6B9E78',
         tabBarInactiveTintColor: '#9EADAC',
-        tabBarStyle: {
-          borderTopWidth: 1,
-          borderTopColor: '#E0E8E6',
-          paddingBottom: 5,
-          paddingTop: 5,
-          height: 60,
-        },
+        tabBarStyle: styles.tabBar,
       }}
     >
       <Tab.Screen
@@ -73,12 +69,6 @@ const MainTabs = () => {
   );
 };
 
-// Componente simples de ícone para tabs
-const TabIcon = ({ icon }: { icon: string }) => (
-  <Text style={{ fontSize: 24 }}>{icon}</Text>
-);
-
-// Navegador principal
 const AppNavigator = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState<User | null>(null);
@@ -95,7 +85,7 @@ const AppNavigator = () => {
 
   if (isLoading) {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#F5F9F7' }}>
+      <View style={styles.loadingContainer}>
         <ActivityIndicator size="large" color="#6B9E78" />
       </View>
     );
@@ -119,5 +109,24 @@ const AppNavigator = () => {
     </NavigationContainer>
   );
 };
+
+const styles = StyleSheet.create({
+  tabIcon: {
+    fontSize: 24,
+  },
+  tabBar: {
+    borderTopWidth: 1,
+    borderTopColor: '#E0E8E6',
+    paddingBottom: 5,
+    paddingTop: 5,
+    height: 60,
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F5F9F7',
+  },
+});
 
 export default AppNavigator;
