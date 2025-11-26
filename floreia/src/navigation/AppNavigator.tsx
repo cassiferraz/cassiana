@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -74,7 +75,7 @@ const MainTabs = () => {
 
 // Componente simples de ícone para tabs
 const TabIcon = ({ icon, color }: { icon: string; color: string }) => (
-  <span style={{ fontSize: 24 }}>{icon}</span>
+  <Text style={{ fontSize: 24 }}>{icon}</Text>
 );
 
 // Navegador principal
