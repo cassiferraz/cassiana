@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Text } from 'react-native';
+import { Text, View, ActivityIndicator } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -42,7 +42,7 @@ const MainTabs = () => {
         component={HomeScreen}
         options={{
           tabBarLabel: 'Início',
-          tabBarIcon: ({ color }) => <TabIcon icon="🏠" color={color} />,
+          tabBarIcon: () => <TabIcon icon="🏠" />,
         }}
       />
       <Tab.Screen
@@ -50,7 +50,7 @@ const MainTabs = () => {
         component={TechniquesScreen}
         options={{
           tabBarLabel: 'Técnicas',
-          tabBarIcon: ({ color }) => <TabIcon icon="🧘" color={color} />,
+          tabBarIcon: () => <TabIcon icon="🧘" />,
         }}
       />
       <Tab.Screen
@@ -58,7 +58,7 @@ const MainTabs = () => {
         component={AchievementsScreen}
         options={{
           tabBarLabel: 'Conquistas',
-          tabBarIcon: ({ color }) => <TabIcon icon="🏆" color={color} />,
+          tabBarIcon: () => <TabIcon icon="🏆" />,
         }}
       />
       <Tab.Screen
@@ -66,7 +66,7 @@ const MainTabs = () => {
         component={ProfileScreen}
         options={{
           tabBarLabel: 'Perfil',
-          tabBarIcon: ({ color }) => <TabIcon icon="👤" color={color} />,
+          tabBarIcon: () => <TabIcon icon="👤" />,
         }}
       />
     </Tab.Navigator>
@@ -74,7 +74,7 @@ const MainTabs = () => {
 };
 
 // Componente simples de ícone para tabs
-const TabIcon = ({ icon, color }: { icon: string; color: string }) => (
+const TabIcon = ({ icon }: { icon: string }) => (
   <Text style={{ fontSize: 24 }}>{icon}</Text>
 );
 
@@ -94,7 +94,11 @@ const AppNavigator = () => {
   };
 
   if (isLoading) {
-    return null; // ou uma tela de loading
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#F5F9F7' }}>
+        <ActivityIndicator size="large" color="#6B9E78" />
+      </View>
+    );
   }
 
   return (
