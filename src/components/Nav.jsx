@@ -2,74 +2,88 @@
 
 import { useState, useEffect } from 'react'
 
-export default function Nav() {
-  const [scrolled, setScrolled] = useState(false)
+const scrollToSection = (id) => {
+  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+}
+
+export default function Nav({ active }) {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50)
+    const onScroll = () => setScrolled(window.scrollY > 60)
     window.addEventListener('scroll', onScroll)
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  const links = [
-    { href: '#about', label: 'Sobre' },
-    { href: '#cases', label: 'Cases' },
-    { href: '#contact', label: 'Contato' },
-  ]
-
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? 'bg-bg/95 backdrop-blur-sm border-b border-muted/10' : ''
-      }`}
+      className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
+      style={{
+        backgroundColor: scrolled ? 'rgba(32, 24, 18, 0.92)' : 'transparent',
+        backdropFilter: scrolled ? 'blur(12px)' : 'none',
+        borderBottom: scrolled ? '1px solid rgba(139, 90, 43, 0.15)' : '1px solid transparent',
+      }}
     >
-      <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-        <a href="#" className="font-serif text-accent text-xl font-medium">
-          CF
-        </a>
+      <div className="max-w-7xl mx-auto px-6 md:px-12 py-4 flex items-center justify-between">
+        <button
+          onClick={() => scrollToSection('home')}
+          className="tracking-widest text-xs uppercase font-medium transition-colors"
+          style={{ color: '#c9a87c' }}
+          onMouseEnter={(e) => (e.target.style.color = '#dfc4a0')}
+          onMouseLeave={(e) => (e.target.style.color = '#c9a87c')}
+        >
+          Cassi Ferraz
+        </button>
 
-        {/* Desktop */}
         <div className="hidden md:flex items-center gap-8">
-          {links.map(link => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="text-muted hover:text-accent transition-colors text-sm tracking-wider uppercase"
+          {[
+            ['Sobre', 'about'],
+            ['Cases', 'cases'],
+            ['Contato', 'contact'],
+          ].map(([label, id]) => (
+            <button
+              key={id}
+              onClick={() => scrollToSection(id)}
+              className="text-xs tracking-widest uppercase transition-colors"
+              style={{ color: active === id ? '#c9a87c' : '#8a7560' }}
+              onMouseEnter={(e) => (e.target.style.color = '#c9a87c')}
+              onMouseLeave={(e) => (e.target.style.color = active === id ? '#c9a87c' : '#8a7560')}
             >
-              {link.label}
-            </a>
+              {label}
+            </button>
           ))}
         </div>
 
-        {/* Mobile toggle */}
         <button
           onClick={() => setMenuOpen(!menuOpen)}
-          className="md:hidden text-muted hover:text-accent"
-          aria-label="Menu"
+          className="md:hidden transition-colors"
+          style={{ color: '#a08b74' }}
         >
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            {menuOpen ? (
-              <path d="M6 6l12 12M6 18L18 6" />
-            ) : (
-              <path d="M3 12h18M3 6h18M3 18h18" />
-            )}
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+            {menuOpen ? <path d="M6 6l12 12M6 18L18 6" /> : <path d="M4 7h16M4 12h16M4 17h16" />}
           </svg>
         </button>
       </div>
 
-      {/* Mobile menu */}
       {menuOpen && (
-        <div className="md:hidden bg-bg/98 backdrop-blur-sm border-t border-muted/10 px-6 py-4">
-          {links.map(link => (
-            <a
-              key={link.href}
-              href={link.href}
-              onClick={() => setMenuOpen(false)}
-              className="block py-3 text-muted hover:text-accent transition-colors text-sm tracking-wider uppercase"
+        <div
+          className="md:hidden px-6 py-6 flex flex-col gap-4"
+          style={{ backgroundColor: 'rgba(32, 24, 18, 0.97)', borderTop: '1px solid rgba(139, 90, 43, 0.15)' }}
+        >
+          {[
+            ['Sobre', 'about'],
+            ['Cases', 'cases'],
+            ['Contato', 'contact'],
+          ].map(([label, id]) => (
+            <button
+              key={id}
+              onClick={() => { scrollToSection(id); setMenuOpen(false) }}
+              className="text-sm tracking-widest uppercase text-left transition-colors"
+              style={{ color: '#a08b74' }}
             >
-              {link.label}
-            </a>
+              {label}
+            </button>
           ))}
         </div>
       )}
