@@ -1,8 +1,12 @@
 'use client'
 
 import FadeIn from './FadeIn'
+import { sanitizeUrl } from '@/lib/sanitize'
 
 export default function Contact({ settings }) {
+  const linkedinHref = sanitizeUrl(settings.linkedin_url)
+  const emailHref = sanitizeUrl(`mailto:${settings.email}`)
+
   return (
     <section id="contact" className="py-24 md:py-32 px-6">
       <div className="max-w-4xl mx-auto text-center">
@@ -19,7 +23,7 @@ export default function Contact({ settings }) {
         <FadeIn>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
             <a
-              href={settings.linkedin_url}
+              href={linkedinHref}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-3 px-8 py-4 bg-accent/10 border border-accent/30 text-accent rounded-lg hover:bg-accent/20 hover:border-accent/50 transition-all text-sm tracking-wider uppercase"
@@ -30,7 +34,7 @@ export default function Contact({ settings }) {
               LinkedIn
             </a>
             <a
-              href={`mailto:${settings.email}`}
+              href={emailHref}
               className="inline-flex items-center gap-3 px-8 py-4 border border-muted/30 text-muted-light rounded-lg hover:border-accent/30 hover:text-accent transition-all text-sm tracking-wider uppercase"
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
