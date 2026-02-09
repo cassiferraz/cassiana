@@ -1,0 +1,13 @@
+{
+  "name": "Cassi Ferraz",
+  "overline": "Design Manager · Publicitária · Gaúcha em Sampa",
+  "hero_subtitle": "Publicitária de formação, designer por vocação. 17+ anos de carreira — de agências digitais no sul do Brasil à liderança de produtos EdTech que impactam milhões de alunos.",
+  "stats": [
+    { "value": 3.5, "suffix": "M+", "label": "alunos impactados" },
+    { "value": 17, "suffix": "+", "label": "anos de design" },
+    { "value": 7, "suffix": "", "label": "designers liderados" }
+  ],
+  "linkedin_url": "https://linkedin.com/in/cassianeferraz",
+  "email": "seu.email@email.com",
+  "footer_text": "© 2025 Cassi Ferraz. Todos os direitos reservados."
+}

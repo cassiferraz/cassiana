@@ -1,0 +1,85 @@
+backend:
+  name: github
+  repo: cassiferraz/cassiana
+  branch: main
+
+media_folder: "public/images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: "cases"
+    label: "Cases"
+    folder: "content/cases"
+    create: true
+    slug: "{{slug}}"
+    sortable_fields: ["order", "title"]
+    fields:
+      - { label: "Título", name: "title", widget: "string" }
+      - { label: "Subtítulo", name: "subtitle", widget: "string" }
+      - label: "Tags"
+        name: "tags"
+        widget: "list"
+        field: { label: "Tag", name: "tag", widget: "string" }
+      - { label: "Ordem", name: "order", widget: "number", value_type: "int" }
+      - { label: "Publicado", name: "published", widget: "boolean", default: true }
+      - { label: "Imagem de capa", name: "cover_image", widget: "image", required: false }
+      - label: "Métricas"
+        name: "metrics"
+        widget: "list"
+        fields:
+          - { label: "Valor", name: "value", widget: "string" }
+          - { label: "Label", name: "label", widget: "string" }
+      - label: "Seções"
+        name: "sections"
+        widget: "list"
+        fields:
+          - { label: "Título", name: "title", widget: "string" }
+          - { label: "Conteúdo", name: "content", widget: "text" }
+
+  - name: "about"
+    label: "Sobre"
+    files:
+      - label: "Sobre mim"
+        name: "about"
+        file: "content/about.md"
+        fields:
+          - { label: "Headline", name: "headline", widget: "string" }
+          - label: "Parágrafos da Bio"
+            name: "bio_paragraphs"
+            widget: "list"
+            field: { label: "Parágrafo", name: "paragraph", widget: "text" }
+          - { label: "Texto sobre Liderança", name: "leadership_text", widget: "text" }
+          - { label: "Texto sobre IA", name: "ai_text", widget: "text" }
+          - label: "Especialidades"
+            name: "specialties"
+            widget: "list"
+            field: { label: "Especialidade", name: "specialty", widget: "string" }
+          - label: "Timeline"
+            name: "timeline"
+            widget: "list"
+            fields:
+              - { label: "Período", name: "period", widget: "string" }
+              - { label: "Cargo", name: "role", widget: "string" }
+              - { label: "Empresa", name: "company", widget: "string" }
+              - { label: "Descrição", name: "description", widget: "text" }
+
+  - name: "settings"
+    label: "Configurações"
+    files:
+      - label: "Configurações Gerais"
+        name: "settings"
+        file: "content/settings.json"
+        fields:
+          - { label: "Nome", name: "name", widget: "string" }
+          - { label: "Overline", name: "overline", widget: "string" }
+          - { label: "Subtítulo do Hero", name: "hero_subtitle", widget: "text" }
+          - label: "Estatísticas"
+            name: "stats"
+            widget: "list"
+            fields:
+              - { label: "Valor", name: "value", widget: "number", value_type: "float" }
+              - { label: "Sufixo", name: "suffix", widget: "string" }
+              - { label: "Label", name: "label", widget: "string" }
+          - { label: "LinkedIn URL", name: "linkedin_url", widget: "string" }
+          - { label: "Email", name: "email", widget: "string" }
+          - { label: "Texto do Footer", name: "footer_text", widget: "string" }
